@@ -1,7 +1,7 @@
-/// <reference path="../typings/angular2/angular2.d.ts" />
+/// <reference path="../typings/tsd.d.ts" />
 
 import {bootstrap} from 'angular2/angular2';
 
-import MyComponent from './MyComponent';
+import NotesApp from './NotesApp';
 
-bootstrap(MyComponent);
+bootstrap(NotesApp);

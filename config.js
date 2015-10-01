@@ -1,7 +1,7 @@
 System.config({
   baseURL: "/",
   defaultJSExtensions: true,
-  transpiler: "typescript",
+  transpiler: "none",
   paths: {
     "npm:*": "jspm_packages/npm/*",
     "github:*": "jspm_packages/github/*"
@@ -11,7 +11,11 @@ System.config({
     "angular2": "npm:angular2@2.0.0-alpha.37",
     "es6-shim": "github:es-shims/es6-shim@0.33.6",
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
+    "ts": "github:frankwallis/plugin-typescript@2.0.17",
     "typescript": "npm:typescript@1.6.2",
+    "github:frankwallis/plugin-typescript@2.0.17": {
+      "typescript": "npm:typescript@1.6.2"
+    },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },

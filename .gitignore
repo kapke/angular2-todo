@@ -49,6 +49,7 @@ crashlytics-build.properties
 # Created by .ignore support plugin (hsz.mobi)
 
 jspm_packages/
+node_modules/
 typings/
 src/*.js
 src/*.js.map
