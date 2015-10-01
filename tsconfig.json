@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "system",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "sourceMap": true
+    },
+    "filesGlob": [
+        "./**/*.ts",
+        "!./node_modules/**/*"
+    ],
+    "files": [
+        "./src/MyComponent.ts",
+        "./src/app.ts",
+        "./typings/angular2/angular2.d.ts"
+    ]
+}

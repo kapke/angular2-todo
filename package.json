@@ -1,0 +1,11 @@
+{
+  "jspm": {
+    "dependencies": {
+      "es6-shim": "github:es-shims/es6-shim@^0.33.6",
+      "reflect-metadata": "npm:reflect-metadata@^0.1.2"
+    },
+    "devDependencies": {
+      "typescript": "npm:typescript@^1.6.2"
+    }
+  }
+}
