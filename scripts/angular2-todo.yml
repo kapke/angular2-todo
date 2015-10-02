@@ -1,0 +1,11 @@
+# ~/.tmuxinator/angular2-todo.yml
+
+name: angular2-todo
+root: projectPath
+
+windows:
+  - watchers:
+      root: projectPath
+      panes:
+        - tsc --watch
+        - http-server

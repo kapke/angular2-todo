@@ -11,5 +11,9 @@
   },
   "devDependencies": {
     "jspm": "^0.16.11"
+  },
+  "scripts": {
+    "install": "bash scripts/install.sh",
+    "start": "mux start angular2-todo"
   }
 }
