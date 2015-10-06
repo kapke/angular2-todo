@@ -1,6 +1,6 @@
 #!/bin/sh
 
-npm install -g http-server typescript jspm
+npm install -g http-server typescript jspm node-sass
 tsd install
 jspm install
 

@@ -2,16 +2,18 @@
 <html>
     <head>
         <title>Angular 2 Quickstart</title>
+        <link rel="stylesheet" href="src/style/style.css">
         <script src="jspm_packages/system-polyfills.js"></script>
         <script src="jspm_packages/system.js"></script>
         <script src="config.js"></script>
+        <script src="node_modules/angular2/bundles/angular2.dev.js" defer></script>
     </head>
     <body>
-        <notes-app></notes-app>
-        <script>
+        <todos-app></todos-app>
+        <script defer>
             System.import('es6-shim');
             System.import('reflect-metadata');
-            System.import('src/app');
+            System.import('src/ts/app');
         </script>
     </body>
 </html>

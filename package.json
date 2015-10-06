@@ -1,7 +1,6 @@
 {
   "jspm": {
     "dependencies": {
-      "angular2": "npm:angular2@^2.0.0-alpha.37",
       "es6-shim": "github:es-shims/es6-shim@^0.33.6",
       "reflect-metadata": "npm:reflect-metadata@^0.1.2"
     },
@@ -15,5 +14,8 @@
   "scripts": {
     "install": "bash scripts/install.sh",
     "start": "mux start angular2-todo"
+  },
+  "dependencies": {
+    "angular2": "^2.0.0-alpha.38"
   }
 }

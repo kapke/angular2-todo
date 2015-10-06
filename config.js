@@ -9,7 +9,11 @@ System.config({
 
   map: {
     "angular2": "npm:angular2@2.0.0-alpha.37",
+    "bootstrap-sass": "github:twbs/bootstrap-sass@3.3.5",
     "es6-shim": "github:es-shims/es6-shim@0.33.6",
+    "google/material-design-lite": "github:google/material-design-lite@1.0.5",
+    "jquery": "github:components/jquery@2.1.4",
+    "material-design-lite": "github:google/material-design-lite@1.0.5",
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
     "ts": "github:frankwallis/plugin-typescript@2.0.17",
     "typescript": "npm:typescript@1.6.2",

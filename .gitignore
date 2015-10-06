@@ -51,5 +51,5 @@ crashlytics-build.properties
 jspm_packages/
 node_modules/
 typings/
-src/*.js
-src/*.js.map
+src/**/*.js
+src/**/*.js.map

@@ -1,4 +1,4 @@
-class Note {
+class Todo {
     public title:string;
     public isDone:boolean;
 
@@ -8,4 +8,4 @@ class Note {
     }
 }
 
-export default Note;
+export default Todo;

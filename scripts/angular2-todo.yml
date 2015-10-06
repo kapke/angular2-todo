@@ -8,4 +8,5 @@ windows:
       root: projectPath
       panes:
         - tsc --watch
+        - node-sass -w -o projectPath/src/style projectPath/src/style
         - http-server
