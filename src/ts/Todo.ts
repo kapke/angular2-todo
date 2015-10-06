@@ -6,6 +6,14 @@ class Todo {
         this.title = title;
         this.isDone = isDone;
     }
+
+    public compareByTitle (anotherTodo:Todo):number {
+        return this.title.localeCompare(anotherTodo.title);
+    }
+
+    public compareByStatus (anotherTodo:Todo):number {
+        return !!this.isDone - !!anotherTodo.isDone;
+    }
 }
 
 export default Todo;

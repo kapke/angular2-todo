@@ -10,9 +10,7 @@ import Todo from '../Todo';
 @View({
     directives: [NgClass],
     styleUrls: ['src/style/todo-item.css'],
-    template: `
-        <div (click)="toggleIsDone()" [ng-class]="{done: todo.isDone}">{{ todo.title }}</div>
-    `
+    templateUrl: 'src/template/todo-item.html'
 })
 class TodoItem {
     public todo:Todo;
@@ -21,7 +19,7 @@ class TodoItem {
         this.todo = null;
     }
 
-    toggleIsDone () {
+    public toggleIsDone () {
         this.todo.isDone = !this.todo.isDone;
     }
 }
