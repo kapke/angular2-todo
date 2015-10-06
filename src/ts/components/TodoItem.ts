@@ -1,6 +1,6 @@
 ///<reference path="../../../typings/tsd.d.ts" />
 
-import {Component, View} from 'angular2/angular2';
+import {Component, View, NgClass} from 'angular2/angular2';
 import Todo from '../Todo';
 
 @Component({
@@ -8,8 +8,10 @@ import Todo from '../Todo';
     properties: ['todo'],
 })
 @View({
+    directives: [NgClass],
+    styleUrls: ['src/style/todo-item.css'],
     template: `
-        <div (click)="toggleIsDone()">{{ todo.isDone}} {{ todo.title }}</div>
+        <div (click)="toggleIsDone()" [ng-class]="{done: todo.isDone}">{{ todo.title }}</div>
     `
 })
 class TodoItem {
