@@ -1,6 +1,6 @@
 ///<reference path="../../../typings/tsd.d.ts" />
 
-import {Component, View, NgClass} from 'angular2/angular2';
+import {Component, View, NgClass, NgIf} from 'angular2/angular2';
 import Todo from '../Todo';
 
 @Component({
@@ -8,19 +8,26 @@ import Todo from '../Todo';
     properties: ['todo'],
 })
 @View({
-    directives: [NgClass],
+    directives: [NgClass, NgIf],
     styleUrls: ['src/style/todo-item.css'],
     templateUrl: 'src/template/todo-item.html'
 })
 class TodoItem {
     public todo:Todo;
+    public ifExpanded:boolean = false;
 
     constructor () {
         this.todo = null;
     }
 
-    public toggleIsDone () {
+    public toggleIsDone ($e) {
+        console.log($e);
+        $e.stopPropagation();
         this.todo.isDone = !this.todo.isDone;
+    }
+
+    public toggleExpandedState () {
+        this.ifExpanded = this.todo.image && !this.ifExpanded;
     }
 }
 

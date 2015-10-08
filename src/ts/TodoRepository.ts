@@ -2,12 +2,12 @@ import Todo from './Todo';
 
 class TodoRepository {
     private todos:Todo[] = [
-            ['First todo', true],
-            ['Second todo', false],
-            ['Third todo', true]
-        ].map((todo) => {
-            return new Todo(todo[0], todo[1]);
-        });
+                {title:'First todo. Some text.',isDone: true, image: 'http://lorempixel.com/320/240'},
+                {title:'Second todo', isDone: true},
+                {title:'Third todo', isDone: true}
+            ].map((todo) => {
+                return new Todo(todo.title, todo.isDone, todo.image||'');
+            });
 
     constructor () {
     }

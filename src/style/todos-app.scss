@@ -1,5 +1,12 @@
+@import "variables";
+
 todos-app {
     color: black;
+
+    .sorting-options {
+        margin: $spacing;
+    }
+
     .sorting-option {
         &.asc::after {
             content: '▲';

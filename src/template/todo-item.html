@@ -1,1 +1,8 @@
-<div (click)="toggleIsDone()" [ng-class]="{done: todo.isDone}">{{ todo.title }}</div>
+<div (click)="toggleExpandedState()" [ng-class]="{done: todo.isDone, expanded: ifExpanded}">
+    <header>{{ todo.title }}</header>
+    <img *ng-if="todo.image" src="{{ todo.image }}">
+    <div class="controls">
+        <button *ng-if="!todo.isDone" (click)="toggleIsDone($event)">Done</button>
+        <button *ng-if="todo.isDone" (click)="toggleIsDone($event)">Undone</button>
+    </div>
+</div>
