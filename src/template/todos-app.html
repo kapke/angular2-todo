@@ -1,12 +1,10 @@
 <div>
-    <div class="sorting-options">
+    <form class="sorting-options">
         <span>Sorting: </span>
-        <button (click)="sortTodosBy('status')"
-                [ng-class]="{asc: sortingOptions.status==1, desc: sortingOptions.status==-1}"
-                class="sorting-option">Status</button>
-        <button (click)="sortTodosBy('title')"
-                [ng-class]="{asc: sortingOptions.title==1, desc: sortingOptions.title==-1}"
-                class="sorting-option">Title</button>
-    </div>
+        <select (change)="sortTodos($event)">
+            <option value="">--</option>
+            <option *ng-for="#option of sortingOptions" [value]="option.value.property+':'+option.value.direction">{{ option.title }}</option>
+        </select>
+    </form>
     <todo-item *ng-for="#todo of todos" [todo]="todo"></todo-item>
 </div>
