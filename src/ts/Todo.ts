@@ -1,12 +1,16 @@
+import Tag from './Tag';
+
 class Todo {
     public title:string;
     public isDone:boolean;
     public image:string;
+    public tags:Tag[];
 
-    constructor (title:string, isDone:boolean = false, image:string = '') {
+    constructor (title:string, isDone:boolean = false, image:string = '', tags:Tag[] = []) {
         this.title = title;
         this.isDone = isDone;
         this.image = image;
+        this.tags = tags;
     }
 
     public compareByTitle (anotherTodo:Todo):number {
