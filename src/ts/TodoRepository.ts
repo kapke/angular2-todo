@@ -3,9 +3,9 @@ import Tag from './Tag';
 
 class TodoRepository {
     private todos:Todo[] = [
-                {title:'First todo. Some text.',isDone: true, image: 'http://lorempixel.com/320/240'},
-                {title:'Second todo', isDone: true, tags: ['second', 'pretty']},
-                {title:'Third todo', isDone: true},
+                {title:'First todo. Some text.',isDone: true, tags: [], image: 'http://lorempixel.com/320/240'},
+                {title:'Second todo', isDone: true, tags: ['second', 'pretty'], image: ''},
+                {title:'Third todo', isDone: true, tags: [], image: ''},
                 {title: 'Advanced todo with a lot of content: tags and image.', isDone: false, tags: ['advanced', 'big', 'image'], image: 'http://lorempixel.com/360/240'}
             ].map((todo) => {
                 function getTag (name) {
