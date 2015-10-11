@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 
-import {Component, View, NgFor, NgClass, FORM_DIRECTIVES} from 'angular2/angular2';
+import {Component, View, NgFor, NgClass, NgIf, FORM_DIRECTIVES} from 'angular2/angular2';
 import TodoItem from './TodoItem';
 import Todo from '../Todo';
 import TodoRepository from '../TodoRepository';
@@ -13,13 +13,15 @@ interface SortingOptionDescriptor {
 
 @Component({
     selector: 'todos-app'
-}) @View({
-    directives: [NgFor, NgClass, TodoItem, FORM_DIRECTIVES],
+})
+@View({
+    directives: [NgFor, NgClass, NgIf, TodoItem, FORM_DIRECTIVES],
     styleUrls: ['src/style/todos-app.css'],
     templateUrl: 'src/template/todos-app.html'
 })
 class TodosApp {
     public todos:Array<Todo>;
+    private starredTodos:Todo[];
     public sortingOptions:SortingOptionDescriptor[] = [];
 
     constructor (todoRepository:TodoRepository) {
@@ -27,9 +29,12 @@ class TodosApp {
             this.sortingOptions.push(this.getSortingOptionDescriptor(name, 1));
             this.sortingOptions.push(this.getSortingOptionDescriptor(name, -1));
         });
-        todoRepository.findTodos().then((todos) => {
+        todoRepository.findUnstarredTodos().then((todos) => {
             this.todos = todos;
         });
+        todoRepository.findStarredTodos().then((todos) => {
+            this.starredTodos = todos;
+        })
     }
 
     public sortTodos ($event) {
@@ -40,14 +45,17 @@ class TodosApp {
     }
 
     private sortTodosBy (name:string, direction:number) {
-        this.todos = this.todos.sort((todo1:Todo, todo2:Todo) => {
+        function todoComparator (todo1:Todo, todo2:Todo) {
             if (name == 'title') {
                 return todo1.compareByTitle(todo2) * direction;
             } else if (name == 'status') {
                 return todo1.compareByStatus(todo2) * direction;
             }
             return 0;
-        });
+        }
+
+        this.todos = this.todos.sort(todoComparator);
+        this.starredTodos = this.starredTodos.sort(todoComparator);
     }
 
     private getSortingOptionDescriptor (name, direction) {

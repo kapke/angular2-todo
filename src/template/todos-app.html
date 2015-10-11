@@ -6,5 +6,16 @@
             <option *ng-for="#option of sortingOptions" [value]="option.value.property+':'+option.value.direction">{{ option.title }}</option>
         </select>
     </form>
-    <todo-item *ng-for="#todo of todos" [todo]="todo"></todo-item>
+    <section class="starred" *ng-if="starredTodos.length">
+        <header>
+            <h3>Starred todos</h3>
+        </header>
+        <todo-item *ng-for="#todo of starredTodos" [todo]="todo"></todo-item>
+    </section>
+    <section class="todos">
+        <header>
+            <h3>Rest todos</h3>
+        </header>
+        <todo-item *ng-for="#todo of todos" [todo]="todo"></todo-item>
+    </section>
 </div>

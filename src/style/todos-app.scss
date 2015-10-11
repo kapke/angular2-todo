@@ -3,6 +3,10 @@
 todos-app {
     color: black;
 
+    section {
+        margin: $spacing 0;
+    }
+
     .sorting-options {
         margin: $spacing;
     }
