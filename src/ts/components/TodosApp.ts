@@ -21,27 +21,46 @@ interface SortingOptionDescriptor {
 })
 class TodosApp {
     public todos:Array<Todo>;
-    private starredTodos:Todo[];
+    public starredTodos:Todo[];
     public sortingOptions:SortingOptionDescriptor[] = [];
+    public filterText:string = '';
+    public hideStarred:boolean = false;
+
+    private todoRepository:TodoRepository;
+    private currentSortingOption:{name:string, direction:number} = null;
 
     constructor (todoRepository:TodoRepository) {
+        this.todoRepository = todoRepository;
+
         ['title', 'status'].forEach((name) => {
             this.sortingOptions.push(this.getSortingOptionDescriptor(name, 1));
             this.sortingOptions.push(this.getSortingOptionDescriptor(name, -1));
         });
-        todoRepository.findUnstarredTodos().then((todos) => {
-            this.todos = todos;
-        });
-        todoRepository.findStarredTodos().then((todos) => {
-            this.starredTodos = todos;
-        })
+        this.fetchTodos();
     }
 
     public sortTodos ($event) {
         if($event.target.value) {
             const [property, direction] = $event.target.value.split(':');
+            this.currentSortingOption = {
+                name: property,
+                direction: direction
+            };
             this.sortTodosBy(property, direction);
         }
+    }
+
+    public filterTodos ($event) {
+        this.filterText = $event.target.value;
+        this.fetchTodos();
+    }
+
+    public toggleStarredVisibility () {
+        this.hideStarred = !this.hideStarred;
+    }
+
+    public canShowStarred ():boolean {
+        return (!this.hideStarred && !!this.starredTodos.length);
     }
 
     private sortTodosBy (name:string, direction:number) {
@@ -67,5 +86,19 @@ class TodosApp {
             }
         }
     }
+
+    private fetchTodos () {
+        this.todoRepository.findUnstarredTodos(this.filterText).then((todos) => {
+            this.todos = todos;
+        });
+        this.todoRepository.findStarredTodos(this.filterText).then((todos) => {
+            this.starredTodos = todos;
+        });
+        if(this.currentSortingOption) {
+            this.sortTodosBy(this.currentSortingOption.name, this.currentSortingOption.direction);
+        }
+    }
+
+
 }
 export default TodosApp;
