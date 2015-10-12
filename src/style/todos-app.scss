@@ -3,8 +3,19 @@
 todos-app {
     color: black;
 
-    .sorting-options {
+    section {
         margin: $spacing;
+    }
+
+    form {
+        margin: $spacing;
+    }
+
+    button {
+        &.pressed {
+            background-color: grey;
+            color: white;
+        }
     }
 
     .sorting-option {

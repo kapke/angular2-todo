@@ -3,12 +3,14 @@ import Tag from './Tag';
 class Todo {
     public title:string;
     public isDone:boolean;
+    public isStarred:boolean;
     public image:string;
     public tags:Tag[];
 
-    constructor (title:string, isDone:boolean = false, image:string = '', tags:Tag[] = []) {
+    constructor (title:string, isDone:boolean = false, image:string = '', tags:Tag[] = [], isStarred:boolean = false) {
         this.title = title;
         this.isDone = isDone;
+        this.isStarred = isStarred;
         this.image = image;
         this.tags = tags;
     }
@@ -19,6 +21,12 @@ class Todo {
 
     public compareByStatus (anotherTodo:Todo):number {
         return ~~this.isDone - ~~anotherTodo.isDone;
+    }
+
+    public isTaggedBy (tagToCheck:Tag) {
+        return this.tags.reduce((previous, tag) => {
+            return previous || tagToCheck.eq(tag);
+        }, false);
     }
 }
 
