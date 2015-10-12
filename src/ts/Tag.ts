@@ -9,8 +9,12 @@ class Tag {
         this.name = name;
     }
 
-    toString () {
+    public toString () {
         return this.name;
+    }
+
+    public eq (tag:Tag):boolean {
+        return (this.toString() == tag.toString());
     }
 }
 

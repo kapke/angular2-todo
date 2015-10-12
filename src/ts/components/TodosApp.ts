@@ -25,9 +25,11 @@ class TodosApp {
     public sortingOptions:SortingOptionDescriptor[] = [];
     public filterText:string = '';
     public hideStarred:boolean = false;
+    public usedTags:Tag[] = [];
 
     private todoRepository:TodoRepository;
     private currentSortingOption:{name:string, direction:number} = null;
+    private activeTagFilters:WeakMap<Tag, boolean> = new WeakMap();
 
     constructor (todoRepository:TodoRepository) {
         this.todoRepository = todoRepository;
@@ -37,6 +39,7 @@ class TodosApp {
             this.sortingOptions.push(this.getSortingOptionDescriptor(name, -1));
         });
         this.fetchTodos();
+        this.fetchTags();
     }
 
     public sortTodos ($event) {
@@ -61,6 +64,15 @@ class TodosApp {
 
     public canShowStarred ():boolean {
         return (!this.hideStarred && !!this.starredTodos.length);
+    }
+
+    public isTagFilterActive (tag:Tag):boolean {
+        return !!this.activeTagFilters.get(tag);
+    }
+
+    public toggleTagFilterActivity (tag:Tag) {
+        this.activeTagFilters.set(tag, !this.isTagFilterActive(tag));
+        this.fetchTodos();
     }
 
     private sortTodosBy (name:string, direction:number) {
@@ -88,15 +100,26 @@ class TodosApp {
     }
 
     private fetchTodos () {
-        this.todoRepository.findUnstarredTodos(this.filterText).then((todos) => {
+        const activeTagFilters = this.getActiveTagFilters();
+        this.todoRepository.findUnstarredTodos(this.filterText, activeTagFilters).then((todos) => {
             this.todos = todos;
         });
-        this.todoRepository.findStarredTodos(this.filterText).then((todos) => {
+        this.todoRepository.findStarredTodos(this.filterText, activeTagFilters).then((todos) => {
             this.starredTodos = todos;
         });
         if(this.currentSortingOption) {
             this.sortTodosBy(this.currentSortingOption.name, this.currentSortingOption.direction);
         }
+    }
+
+    private fetchTags () {
+        this.todoRepository.findUsedTags().then((tags) => {
+            this.usedTags = tags;
+        });
+    }
+
+    private getActiveTagFilters ():Tag[] {
+        return this.usedTags.filter(this.isTagFilterActive.bind(this));
     }
 
 

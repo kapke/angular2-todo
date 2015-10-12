@@ -22,6 +22,12 @@ class Todo {
     public compareByStatus (anotherTodo:Todo):number {
         return ~~this.isDone - ~~anotherTodo.isDone;
     }
+
+    public isTaggedBy (tagToCheck:Tag) {
+        return this.tags.reduce((previous, tag) => {
+            return previous || tagToCheck.eq(tag);
+        }, false);
+    }
 }
 
 export default Todo;

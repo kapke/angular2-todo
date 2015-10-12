@@ -14,6 +14,9 @@
         <fieldset>
             <button [ng-class]="{pressed: hideStarred}" (click)="toggleStarredVisibility()">Hide starred</button>
         </fieldset>
+        <fieldset>
+            <button *ng-for="#tag of usedTags" [ng-class]="{pressed: isTagFilterActive(tag)}" (click)="toggleTagFilterActivity(tag)">{{ tag.toString() }}</button>
+        </fieldset>
     </form>
     <section class="starred" *ng-if="canShowStarred()">
         <header>
