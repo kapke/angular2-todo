@@ -3,6 +3,7 @@
 import {Component, View, NgFor, NgClass, NgIf, FORM_DIRECTIVES} from 'angular2/angular2';
 import TodoItem from './TodoItem';
 import Todo from '../Todo';
+import Tag from '../Tag';
 import TodoRepository from '../TodoRepository';
 
 interface SortingOptionDescriptor {
@@ -29,7 +30,7 @@ class TodosApp {
 
     private todoRepository:TodoRepository;
     private currentSortingOption:{name:string, direction:number} = null;
-    private activeTagFilters:WeakMap<Tag, boolean> = new WeakMap();
+    private activeTagFilters:WeakMap<Tag, boolean> = new WeakMap<Tag, boolean>();
 
     constructor (todoRepository:TodoRepository) {
         this.todoRepository = todoRepository;

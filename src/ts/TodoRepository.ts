@@ -31,10 +31,6 @@ class TodoRepository {
         }
     };
 
-    public findAllTodos ():Promise<Todo[]> {
-        return Promise.resolve(this.todos);
-    }
-
     public findStarredTodos (filterText = '', filterTags = []):Promise<Todo[]> {
         return this.findTodos([
             this.filters.starred,
