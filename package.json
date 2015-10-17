@@ -16,6 +16,6 @@
     "start": "mux start angular2-todo"
   },
   "dependencies": {
-    "angular2": "^2.0.0-alpha.38"
+    "angular2": "^2.0.0-alpha.44"
   }
 }
