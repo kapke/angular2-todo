@@ -12,7 +12,6 @@ import TodoRepository from '../TodoRepository';
 })
 @View({
     directives: [NgFor, NgClass, NgIf, TodoItem, FORM_DIRECTIVES, SortingPanel],
-    styleUrls: ['src/style/todos-app.css'],
     templateUrl: 'src/template/todos-app.html'
 })
 class TodosApp {

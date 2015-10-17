@@ -10,7 +10,6 @@ import Todo from '../Todo';
 })
 @View({
     directives: [NgClass, NgIf, NgFor, TodoForm],
-    styleUrls: ['src/style/todo-item.css'],
     templateUrl: 'src/template/todo-item.html'
 })
 class TodoItem {
