@@ -1,0 +1,8 @@
+<form class="sorting-options">
+    <span>Sorting: </span>
+    <select (change)="optionChanged($event)">
+        <option value="">--</option>
+        <option *ng-for="#option of sortingOptions" [value]="option.id">{{ option.title }}
+        </option>
+    </select>
+</form>

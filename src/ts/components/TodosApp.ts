@@ -2,56 +2,35 @@
 
 import {Component, View, NgFor, NgClass, NgIf, FORM_DIRECTIVES} from 'angular2/angular2';
 import TodoItem from './TodoItem';
+import {SortingPanel, SortingOptionDescriptor, SortingDirection} from './SortingPanel';
 import Todo from '../Todo';
 import Tag from '../Tag';
 import TodoRepository from '../TodoRepository';
-
-interface SortingOptionDescriptor {
-    title: string,
-    //0 - not sorting, 1 - increasing, -1 - decreasing
-    value:{property:string, direction: number}
-}
 
 @Component({
     selector: 'todos-app'
 })
 @View({
-    directives: [NgFor, NgClass, NgIf, TodoItem, FORM_DIRECTIVES],
+    directives: [NgFor, NgClass, NgIf, TodoItem, FORM_DIRECTIVES, SortingPanel],
     styleUrls: ['src/style/todos-app.css'],
     templateUrl: 'src/template/todos-app.html'
 })
 class TodosApp {
     public todos:Array<Todo>;
     public starredTodos:Todo[];
-    public sortingOptions:SortingOptionDescriptor[] = [];
     public filterText:string = '';
     public hideStarred:boolean = false;
     public usedTags:Tag[] = [];
 
     private todoRepository:TodoRepository;
-    private currentSortingOption:{name:string, direction:number} = null;
+    private currentSortingOption:SortingOptionDescriptor = null;
     private activeTagFilters:WeakMap<Tag, boolean> = new WeakMap<Tag, boolean>();
 
     constructor (todoRepository:TodoRepository) {
         this.todoRepository = todoRepository;
 
-        ['title', 'status'].forEach((name) => {
-            this.sortingOptions.push(this.getSortingOptionDescriptor(name, 1));
-            this.sortingOptions.push(this.getSortingOptionDescriptor(name, -1));
-        });
         this.fetchTodos();
         this.fetchTags();
-    }
-
-    public sortTodos ($event) {
-        if($event.target.value) {
-            const [property, direction] = $event.target.value.split(':');
-            this.currentSortingOption = {
-                name: property,
-                direction: direction
-            };
-            this.sortTodosBy(property, direction);
-        }
     }
 
     public filterTodos ($event) {
@@ -76,8 +55,15 @@ class TodosApp {
         this.fetchTodos();
     }
 
-    private sortTodosBy (name:string, direction:number) {
-        function todoComparator (todo1:Todo, todo2:Todo) {
+    public sortingOptionChanged (newSortingOption:SortingOptionDescriptor) {
+        this.currentSortingOption = newSortingOption;
+        this.sortTodosBy(this.currentSortingOption);
+    }
+
+    private sortTodosBy (sortingOption:string|SortingOptionDescriptor, direction?:number) {
+        const that = this;
+
+        function todoComparator (name:string, direction:SortingDirection, todo1:Todo, todo2:Todo) {
             if (name == 'title') {
                 return todo1.compareByTitle(todo2) * direction;
             } else if (name == 'status') {
@@ -86,17 +72,15 @@ class TodosApp {
             return 0;
         }
 
-        this.todos = this.todos.sort(todoComparator);
-        this.starredTodos = this.starredTodos.sort(todoComparator);
-    }
+        function sort (comparatorFunc:(todo1:Todo, todo2:Todo) => number) {
+            that.todos = that.todos.sort(comparatorFunc);
+            that.starredTodos = that.starredTodos.sort(comparatorFunc);
+        }
 
-    private getSortingOptionDescriptor (name, direction) {
-        const suffix = direction == 1 ? 'ascending' : 'descending';
-
-        return {
-            title: name + ' ' + suffix, value: {
-                property: name, direction: direction
-            }
+        if (typeof sortingOption == 'object') {
+            sort(todoComparator.bind(null, (<SortingOptionDescriptor>sortingOption).value.property, (<SortingOptionDescriptor>sortingOption).value.direction));
+        } else if (typeof sortingOption == 'string') {
+            sort(todoComparator.bind(null, sortingOption, direction));
         }
     }
 
@@ -109,7 +93,7 @@ class TodosApp {
             this.starredTodos = todos;
         });
         if(this.currentSortingOption) {
-            this.sortTodosBy(this.currentSortingOption.name, this.currentSortingOption.direction);
+            this.sortTodosBy(this.currentSortingOption.value.property, this.currentSortingOption.value.direction);
         }
     }
 
