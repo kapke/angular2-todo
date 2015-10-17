@@ -1,6 +1,6 @@
-<div [ng-class]="{done: todo.isDone, expanded: ifExpanded}" (click)="toggleExpandedState()">
-    <header>{{ todo.title }}</header>
-    <div class="tags" *ng-if="todo.tags">
+<div [ng-class]="{done: todo.isDone, expanded: ifExpanded, editing: ifEditing}" (click)="toggleExpandedState()">
+    <header (click)="toggleEditingState($event)">{{ todo.title }}</header>
+    <div class="tags" *ng-if="todo.tags" (click)="toggleEditingState($event)">
         <span class="tag" *ng-for="#tag of todo.tags">{{ tag }}</span>
     </div>
     <img *ng-if="todo.image" src="{{ todo.image }}">
@@ -8,4 +8,9 @@
         <button *ng-if="!todo.isDone" (click)="toggleIsDone($event)">Done</button>
         <button *ng-if="todo.isDone" (click)="toggleIsDone($event)">Undone</button>
     </div>
+    <todo-form *ng-if="ifEditing"
+               [fill-with]="todo"
+               [submit-button-title]="'save'"
+               (cancel)="toggleEditingState()"
+               (todo-ready)="updateTodo($event)"></todo-form>
 </div>

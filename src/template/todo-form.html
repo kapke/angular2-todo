@@ -1,0 +1,13 @@
+<form [ng-form-model]="todoForm" (submit)="sendTodo($event)">
+    <label>
+        Title: <input ng-control="title" />
+    </label>
+    <label>
+        Image: <input ng-control="image"/>
+    </label>
+    <label>
+        tags: <input ng-control="tags" />
+    </label>
+    <button type="submit">{{ submitButtonTitle }}</button>
+    <button type="button" (click)="cancelled()">Cancel</button>
+</form>

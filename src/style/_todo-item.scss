@@ -1,6 +1,8 @@
 @import "variables";
 
 todo-item>div {
+    $expanded-height: 15em;
+
     width: 20em;
     height: 7em;
     box-shadow: 1px 1px 2px rgba(black, 0.25);
@@ -22,6 +24,16 @@ todo-item>div {
         bottom: 0;
         width: 50%;
         transition: all 0.2s ease-out;
+    }
+
+    todo-form {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        z-index: 1;
     }
 
     .tags {
@@ -54,7 +66,7 @@ todo-item>div {
     }
 
     &.expanded {
-        height: 15em;
+        height: $expanded-height;
 
         img {
             width: 100%;
@@ -63,5 +75,9 @@ todo-item>div {
         .tags {
             transform: scaleY(1);
         }
+    }
+
+    &.editing {
+        height: $expanded-height;
     }
 }

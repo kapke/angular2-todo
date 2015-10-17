@@ -1,0 +1,22 @@
+@import "variables";
+
+todo-form>form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        margin: 0;
+
+        input {
+            float: right;
+        }
+
+        + label {
+            margin-top: $spacing;
+        }
+    }
+
+    button {
+        margin-top: $spacing;
+    }
+}
