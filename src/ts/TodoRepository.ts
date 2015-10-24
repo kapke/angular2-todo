@@ -31,6 +31,11 @@ class TodoRepository {
         }
     };
 
+    public addTodo (todo:Todo):Promise<any> {
+        this.todos.push(todo);
+        return Promise.resolve(null);
+    }
+
     public findStarredTodos (filterText = '', filterTags = []):Promise<Todo[]> {
         return this.findTodos([
             this.filters.starred,

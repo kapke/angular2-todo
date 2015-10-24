@@ -1,6 +1,7 @@
 @import "variables";
 
 todo-form>form {
+    width: $todo-form-width;
     display: flex;
     flex-direction: column;
 

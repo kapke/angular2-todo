@@ -3,7 +3,7 @@
 todo-item>div {
     $expanded-height: 15em;
 
-    width: 20em;
+    width: $todo-width;
     height: 7em;
     box-shadow: 1px 1px 2px rgba(black, 0.25);
     position: relative;
