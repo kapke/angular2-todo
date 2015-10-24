@@ -22,12 +22,12 @@ interface TodoFormControls {
 class TodoForm {
     public submitButtonTitle:string = '';
     public todoForm:ControlGroup;
+    public controls:TodoFormControls;
 
     public todoReady = new EventEmitter();
     public cancel = new EventEmitter();
 
     private originalTodo:Todo = Todo.empty();
-    private controls:TodoFormControls;
 
     public set fillWith (todo:Todo) {
         this.controls.title.updateValue(todo.title, {});
@@ -38,7 +38,7 @@ class TodoForm {
 
     constructor (fb: FormBuilder) {
         this.controls = {
-            title: fb.control(''),
+            title: fb.control('', Validators.compose([Validators.required, Validators.maxLength(140)])),
             image: fb.control(''),
             tags: fb.control('')
         };
@@ -47,8 +47,10 @@ class TodoForm {
 
     public sendTodo ($event) {
         $event.preventDefault();
-        const todo = this.extractTodoFromForm();
-        this.todoReady.next(todo);
+        if(this.todoForm.valid) {
+            const todo = this.extractTodoFromForm();
+            this.todoReady.next(todo);
+        }
     }
 
     public cancelled (e) {
