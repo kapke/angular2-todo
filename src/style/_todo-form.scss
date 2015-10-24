@@ -1,23 +1,29 @@
 @import "variables";
 
-todo-form>form {
+todo-form {
+    display: block;
     width: $todo-form-width;
-    display: flex;
-    flex-direction: column;
+    padding: $spacing;
 
-    label {
+    > form {
+        display: flex;
+        flex-direction: column;
         margin: 0;
 
-        input {
-            float: right;
+        label {
+            margin: 0;
+
+            input {
+                float: right;
+            }
+
+            + label {
+                margin-top: $spacing;
+            }
         }
 
-        + label {
+        button {
             margin-top: $spacing;
         }
-    }
-
-    button {
-        margin-top: $spacing;
     }
 }
