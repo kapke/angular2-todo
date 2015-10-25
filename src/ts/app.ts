@@ -8,5 +8,6 @@ import {bootstrap, FORM_BINDINGS} from 'angular2/angular2';
 
 import TodosApp from './components/TodosApp';
 import TodoRepository from './TodoRepository';
+import LocalStorage from './storage/LocalStorage';
 
-bootstrap(TodosApp, [TodoRepository, FORM_BINDINGS]);
+bootstrap(TodosApp, [TodoRepository, LocalStorage, FORM_BINDINGS]);

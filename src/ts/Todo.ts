@@ -11,6 +11,19 @@ class Todo {
         return new Todo('');
     }
 
+    public static fromObject (todo:any):Todo {
+        const getTag = (name) => {
+            if (typeof name == 'object') {
+                return new Tag(name.name);
+            } else if (typeof name == 'string') {
+                return new Tag(name);
+            }
+        };
+
+        const tags = todo.tags ? todo.tags.map(getTag) : [];
+        return new Todo(todo.title, todo.isDone, todo.image || '', tags, todo.isStarred);
+    }
+
     constructor (title:string, isDone:boolean = false, image:string = '', tags:Tag[] = [], isStarred:boolean = false) {
         this.title = title;
         this.isDone = isDone;
