@@ -3,6 +3,7 @@
 import {Component, View, FormBuilder, ControlGroup, Control, FORM_DIRECTIVES, Validators, EventEmitter} from 'angular2/angular2';
 import Todo from '../Todo';
 import Tag from '../Tag';
+import {UrlValidator} from '../validators';
 
 interface TodoFormControls {
     title: Control,
@@ -30,16 +31,16 @@ class TodoForm {
     private originalTodo:Todo = Todo.empty();
 
     public set fillWith (todo:Todo) {
-        this.controls.title.updateValue(todo.title, {});
-        this.controls.image.updateValue(todo.image, {});
-        this.controls.tags.updateValue(todo.tags.join(' '), {});
+        this.controls.title.updateValue(todo.title);
+        this.controls.image.updateValue(todo.image);
+        this.controls.tags.updateValue(todo.tags.join(' '));
         this.originalTodo = todo;
     }
 
     constructor (fb: FormBuilder) {
         this.controls = {
             title: fb.control('', Validators.compose([Validators.required, Validators.maxLength(140)])),
-            image: fb.control(''),
+            image: fb.control('', UrlValidator),
             tags: fb.control('')
         };
         this.todoForm = fb.group(this.controls);
