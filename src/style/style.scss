@@ -4,6 +4,11 @@ body {
     font-family: Ubuntu;
 }
 
+* {
+    box-sizing: border-box;
+}
+
+@import "forms";
 @import "todos-app";
 @import "todo-form";
 @import "todo-item";

@@ -6,12 +6,13 @@ import {SortingPanel, SortingOptionDescriptor, SortingDirection} from './Sorting
 import Todo from '../Todo';
 import Tag from '../Tag';
 import TodoRepository from '../TodoRepository';
+import TodoForm from './TodoForm';
 
 @Component({
     selector: 'todos-app'
 })
 @View({
-    directives: [NgFor, NgClass, NgIf, TodoItem, FORM_DIRECTIVES, SortingPanel],
+    directives: [NgFor, NgClass, NgIf, TodoItem, FORM_DIRECTIVES, SortingPanel, TodoForm],
     templateUrl: 'src/template/todos-app.html'
 })
 class TodosApp {
@@ -20,6 +21,7 @@ class TodosApp {
     public filterText:string = '';
     public hideStarred:boolean = false;
     public usedTags:Tag[] = [];
+    public newTodo:Todo = Todo.empty();
 
     private todoRepository:TodoRepository;
     private currentSortingOption:SortingOptionDescriptor = null;
@@ -57,6 +59,17 @@ class TodosApp {
     public sortingOptionChanged (newSortingOption:SortingOptionDescriptor) {
         this.currentSortingOption = newSortingOption;
         this.sortTodosBy(this.currentSortingOption);
+    }
+
+    public clearNewTodo () {
+        this.newTodo = Todo.empty();
+    }
+
+    public addNewTodo (newTodo:Todo) {
+        this.todoRepository.addTodo(newTodo).then(() => {
+            this.fetchTodos();
+        });
+        this.clearNewTodo();
     }
 
     private sortTodosBy (sortingOption:string|SortingOptionDescriptor, direction?:number) {

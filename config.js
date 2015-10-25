@@ -17,6 +17,7 @@ System.config({
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
     "ts": "github:frankwallis/plugin-typescript@2.0.17",
     "typescript": "npm:typescript@1.6.2",
+    "valid-url": "npm:valid-url@1.0.9",
     "github:frankwallis/plugin-typescript@2.0.17": {
       "typescript": "npm:typescript@1.6.2"
     },

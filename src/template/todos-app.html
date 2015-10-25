@@ -1,5 +1,8 @@
 <div>
     <sorting-panel (option-change)="sortingOptionChanged($event)"></sorting-panel>
+    <todo-form [submit-button-title]="'Add'"
+               (cancel)="clearNewTodo()"
+               (todo-ready)="addNewTodo($event)"></todo-form>
     <form>
         <label>
             Filter:
